@@ -467,6 +467,7 @@ fn infer_definition(
             alias,
             parameters,
             annotation,
+            decorators,
             tipo: _,
         }) => {
             let tipo = environment
@@ -475,6 +476,8 @@ fn infer_definition(
                 .tipo
                 .clone();
 
+            todo!("check decorators");
+
             Ok(Definition::TypeAlias(TypeAlias {
                 doc,
                 location,
@@ -482,6 +485,7 @@ fn infer_definition(
                 alias,
                 parameters,
                 annotation,
+                decorators,
                 tipo,
             }))
         }
@@ -493,9 +497,12 @@ fn infer_definition(
             opaque,
             name,
             parameters,
+            decorators,
             constructors: untyped_constructors,
             typed_parameters: _,
         }) => {
+            todo!("check decorators");
+
             let constructors = untyped_constructors
                 .into_iter()
                 .map(|constructor| {
@@ -504,6 +511,8 @@ fn infer_definition(
                         .expect("Could not find preregistered type for function");
 
                     let preregistered_type = preregistered_fn.tipo.clone();
+
+                    todo!("check decorators");
 
                     let args = preregistered_type.function_types().map_or(
                         Ok(vec![]),
@@ -533,7 +542,10 @@ fn infer_definition(
                                         Rc::make_mut(&mut parent.tipo).set_opaque(true)
                                     }
 
+                                    todo!("check decorators");
+
                                     Ok(RecordConstructorArg {
+                                        decorators: arg.decorators,
                                         label: arg.label,
                                         annotation: arg.annotation,
                                         location: arg.location,
@@ -549,6 +561,7 @@ fn infer_definition(
                         location: constructor.location,
                         name: constructor.name,
                         arguments: args,
+                        decorators: constructor.decorators,
                         doc: constructor.doc,
                         sugar: constructor.sugar,
                     })
@@ -569,6 +582,7 @@ fn infer_definition(
                 name,
                 parameters,
                 constructors,
+                decorators,
                 typed_parameters,
             };
 
@@ -579,6 +593,7 @@ fn infer_definition(
                     doc: _,
                     label: _,
                     annotation: _,
+                    decorators: _,
                 } in &constr.arguments
                 {
                     if tipo.is_function() {
