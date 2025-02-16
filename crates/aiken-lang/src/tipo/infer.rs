@@ -476,8 +476,6 @@ fn infer_definition(
                 .tipo
                 .clone();
 
-            todo!("check decorators");
-
             Ok(Definition::TypeAlias(TypeAlias {
                 doc,
                 location,
@@ -501,8 +499,6 @@ fn infer_definition(
             constructors: untyped_constructors,
             typed_parameters: _,
         }) => {
-            todo!("check decorators");
-
             let constructors = untyped_constructors
                 .into_iter()
                 .map(|constructor| {
@@ -511,8 +507,6 @@ fn infer_definition(
                         .expect("Could not find preregistered type for function");
 
                     let preregistered_type = preregistered_fn.tipo.clone();
-
-                    todo!("check decorators");
 
                     let args = preregistered_type.function_types().map_or(
                         Ok(vec![]),
@@ -541,8 +535,6 @@ fn infer_definition(
 
                                         Rc::make_mut(&mut parent.tipo).set_opaque(true)
                                     }
-
-                                    todo!("check decorators");
 
                                     Ok(RecordConstructorArg {
                                         decorators: arg.decorators,

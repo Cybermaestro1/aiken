@@ -1092,7 +1092,7 @@ impl<'a> Environment<'a> {
                 parameters,
                 location,
                 constructors,
-                decorators,
+                decorators: _,
                 doc: _,
                 typed_parameters: _,
             }) => {
@@ -1138,7 +1138,7 @@ impl<'a> Environment<'a> {
             Definition::TypeAlias(TypeAlias {
                 location,
                 public,
-                decorators,
+                decorators: _,
                 parameters: args,
                 alias: name,
                 annotation: resolved_type,
